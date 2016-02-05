@@ -8,7 +8,7 @@ import converters.VelocityConverter;
 
 public class FinalVelocityCalculatorTester {
 	static double massKg = MassConverter.convertToKilograms(.196, "lbs");
-	static ImpactVariablesCalculator ivc = new ImpactVariablesCalculator(29.54, 5.67, 5.21, massKg );
+	static ImpactVariablesCalculator ivc = new ImpactVariablesCalculator(29.54, 5.67, 5.21, massKg);
 	static PrintStream out = System.out;
 	
 	public static void main(String args[]) {

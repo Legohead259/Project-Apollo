@@ -22,6 +22,8 @@ public class KineticEnergyEquation {
 	 * @Postcondition the kinetic energy will be in Joules (J)
 	 */
 	public void calcEquation() {
-		kineticEnergy = .5 * mass * Math.pow(velocity, 2);
+		double veloSqrd = Math.pow(velocity, 2);
+		
+		kineticEnergy = .5 * mass * veloSqrd;
 	}
 }
