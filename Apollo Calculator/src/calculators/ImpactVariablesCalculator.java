@@ -6,7 +6,7 @@ import equations.PythagEquation;
 
 public class ImpactVariablesCalculator {
 	double time, initVertVelo, horizVelo, mass;
-	public double finalVelo, veloAngle, kineticEnergy, impactForce;
+	public double impactVelo, impactAngle, impactEnergy, impactForce;
 	public double finalVertVelo, acceleration;
 	final double GRAVITY = 9.8;
 	
@@ -33,20 +33,20 @@ public class ImpactVariablesCalculator {
 	}
 	
 	public void calcFinalVelo() {
-		finalVelo = -GRAVITY * time;
-		finalVelo = -finalVelo;
+		impactVelo = -GRAVITY * time;
+		impactVelo = -impactVelo;
 	}
 	
 	public void calcVeloAngle() {
 		calcFinalVertVelo();
 		
-		veloAngle = Math.atan(-finalVertVelo / horizVelo); 
-		veloAngle = Math.toDegrees(veloAngle);//Calculates the angle the projectile hits the ground
+		impactAngle = Math.atan(-finalVertVelo / horizVelo); 
+		impactAngle = Math.toDegrees(impactAngle);//Calculates the angle the projectile hits the ground
 	}
 	
 	public void calcKineticEnergy() {
-		KineticEnergyEquation ke = new KineticEnergyEquation(mass, finalVelo); ke.calcEquation(); //Calculates kinetic energy in joules
-		kineticEnergy = ke.kineticEnergy;
+		KineticEnergyEquation ke = new KineticEnergyEquation(mass, impactVelo); ke.calcEquation(); //Calculates kinetic energy in joules
+		impactEnergy = ke.kineticEnergy;
 	}
 	
 	public void calcImpactForce() {

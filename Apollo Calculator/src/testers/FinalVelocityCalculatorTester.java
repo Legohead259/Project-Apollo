@@ -18,10 +18,10 @@ public class FinalVelocityCalculatorTester {
 	private static void testFinalVeloCalc(ImpactVariablesCalculator ivc) {
 		ivc.calcAll();
 		
-		out.println(ivc.finalVelo + " m/s");
-		out.println(VelocityConverter.convertToFPS(ivc.finalVelo, "m/s") + " ft/s");
-		out.println(ivc.veloAngle + " degrees");
+		out.println(ivc.impactVelo + " m/s");
+		out.println(VelocityConverter.convertToFPS(ivc.impactVelo, "m/s") + " ft/s");
+		out.println(ivc.impactAngle + " degrees");
 		out.println(ivc.impactForce + " N");
-		out.println(ivc.kineticEnergy + " J");
+		out.println(ivc.impactEnergy + " J");
 	}
 }

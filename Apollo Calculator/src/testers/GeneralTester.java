@@ -10,6 +10,7 @@ import converters.MassConverter;
 import converters.VelocityConverter;
 import objects.Projectile;
 import objects.Railgun;
+import util.Writer;
 
 public class GeneralTester {
 	static double lengthMeters = LengthConverter.convertToMeters(20, "in");
@@ -20,6 +21,19 @@ public class GeneralTester {
 	
 	static PrintStream out = System.out;
 	
+	static String path = "E:\\Project ZEUS\\Project APOLLO\\Output Test.txt";
+	
+	static String[] names = {"Muzzle Velocity: ",  "Muzzle Velocity: ", "Muzzle Energy: ", "Acceleration: ", 
+							 "Time in Barrel: ", "Range: ", "Time of Flight: ", "Impact Angle: ", "Impact Velocity: ",
+							 "Impact Velocity: ", "Impact Energy: ", "Impact Force: ", "Impact Foce: "};
+	
+	static double muzzleVeloMPS, muzzleVeloFPS, muzzleEnergy, acceleration, barrelTravelTime;
+	static double range, timeOfFlight; 
+	static String trajectoryFormula;
+	static double impactAngle, impactVeloMPS, impactVeloFPS, impactEnergy, impactForceN, impactForceLBS; 
+	static double[] dataPoints = new double[13];
+				  
+	
 	public static void main(String[] args) {
 		simulate();
 	}
@@ -29,7 +43,8 @@ public class GeneralTester {
 	
 	
 	private static void simulate() {
-		calcProjectileVariables(); calcRange(); 
+		calcProjectileVariables(); calcRange(); createVariableArr(); 
+		writeVariablesToFile(path, dataPoints, names, trajectoryFormula);
 	}
 	
 	
@@ -37,11 +52,16 @@ public class GeneralTester {
 	
 	
 	private static void calcProjectileVariables() {
-		p.calcMuzzleVelocity();
+		p.calcAll();
 		
-		out.println("Muzzle Velocity: " + p.muzzleVelocity + " m/s"); //Prints projectile's muzzle velocity in m/s
-		out.println("Muzzle Velocity: " + VelocityConverter.convertToFPS(p.muzzleVelocity, "m/s") + " ft/s"); //Prints projectile's muzzle velocity in ft/s
-		out.println("Time in Barrel: " + p.barrelTravelTime + " seconds");
+		muzzleVeloMPS = p.muzzleVelocity; muzzleVeloFPS = VelocityConverter.convertToFPS(p.muzzleVelocity, "m/s");
+		muzzleEnergy = p.muzzleEnergy; acceleration = p.acceleration; barrelTravelTime = p.barrelTravelTime;
+		
+		out.println("Muzzle Velocity: " + muzzleVeloMPS + " m/s"); //Prints projectile's muzzle velocity in m/s
+		out.println("Muzzle Velocity: " + muzzleVeloFPS + " ft/s"); //Prints projectile's muzzle velocity in ft/s
+		out.println("Muzzle Energy: " + muzzleEnergy + " J");
+		out.println("Acceleration: " + acceleration + " m/s^2");
+		out.println("Time in Barrel: " + barrelTravelTime + " seconds");
 		out.println();
 	}
 	
@@ -52,9 +72,11 @@ public class GeneralTester {
 	private static void calcRange() {
 		RangeCalculator rc = new RangeCalculator(p.muzzleVelocity, 30); rc.calcRange();
 		
-		out.println("Range: " + rc.range + " m"); //Prints range in meters
-		out.println("Time of flight: " + rc.time + " s"); // Prints time of flight in s
-		out.println("Trajectory formula: " + rc.trajectoryFormula);
+		range = rc.range; timeOfFlight = rc.time; trajectoryFormula = rc.trajectoryFormula;
+		
+		out.println("Range: " + range + " m"); //Prints range in meters
+		out.println("Time of flight: " + timeOfFlight + " s"); // Prints time of flight in s
+		out.println("Trajectory formula: " + trajectoryFormula);
 		out.println();
 		
 		calcImpactVariables(rc.initVertVelo, rc.time, rc.horizVelo);
@@ -67,13 +89,57 @@ public class GeneralTester {
 	private static void calcImpactVariables(double initVertVelo, double t, double hVelo) {
 		ImpactVariablesCalculator ivc = new ImpactVariablesCalculator(initVertVelo, t, hVelo, massKg ); ivc.calcAll();
 		
-		out.println("Impact angle: " + ivc.veloAngle + " degrees");
-		out.println("Impact velocity: " + ivc.finalVelo + " m/s"); //Prints impact velocity in m/s
-		out.println("Impact velocity: " + VelocityConverter.convertToFPS(ivc.finalVelo, "m/s") + " ft/s"); //Prints impact velocity in ft/s
-		out.println("Impact energy: " + ivc.kineticEnergy + " J"); //Prints impact energy in Joules
-		out.println("Impact force: " + ivc.impactForce + " N"); //Prints impact force in Newtons
-		out.println("Impact force: " + ForceConverter.convertToPoundsForce(ivc.impactForce, "N") + " lbf"); //Prints impact force in lbf
+		impactAngle = ivc.impactAngle; impactVeloMPS = ivc.impactVelo; 
+		impactVeloFPS = VelocityConverter.convertToFPS(ivc.impactVelo, "m/s"); impactEnergy = ivc.impactEnergy;
+		impactForceN = ivc.impactForce; impactForceLBS = ForceConverter.convertToPoundsForce(ivc.impactForce, "N");
+		
+		out.println("Impact angle: " + impactAngle + " degrees");
+		out.println("Impact velocity: " + impactVeloMPS + " m/s"); //Prints impact velocity in m/s
+		out.println("Impact velocity: " + impactVeloFPS + " ft/s"); //Prints impact velocity in ft/s
+		out.println("Impact energy: " + impactEnergy + " J"); //Prints impact energy in Joules
+		out.println("Impact force: " + impactForceN + " N"); //Prints impact force in Newtons
+		out.println("Impact force: " + impactForceLBS + " lbf"); //Prints impact force in lbf
 		out.println();
+	}
+	
+	
+	//*****START WRITE TO FILE METHODS*****
+	
+	
+	private static void createVariableArr() {
+		dataPoints[0] = muzzleVeloMPS; dataPoints[1] = muzzleVeloFPS; dataPoints[2] = muzzleEnergy; 
+		dataPoints[3] = acceleration; dataPoints[4] = barrelTravelTime; dataPoints[5] = range; dataPoints[6] = timeOfFlight;
+		dataPoints[7] = impactAngle; dataPoints[8] = impactVeloMPS; dataPoints[9] = impactVeloFPS;
+		dataPoints[10] = impactEnergy; dataPoints[11] = impactForceN; dataPoints[12] = impactForceLBS;
+	}
+	
+	/**
+	 * Method that writes given variables to a .txt file that will be created in the workspace
+	 * @param path the path to the file
+	 * @param arr the array of data
+	 * @param names the names of the variables
+	 * @param equation the equation for the projectile trajectory
+	 */
+	private static void writeVariablesToFile(String path, double[] arr, String[] names, String equation) {
+		Writer writer = new Writer(path);
+		int place = 0;
+		
+		for (double x : arr) {
+			String name = names[place];
+			writer.write(name); writer.write(x); writer.writeNewLine();
+			
+			if (name.equals("Time in Barrel: ")) {
+				writer.writeNewLine();
+			}
+			
+			if (name.equals("Time of Flight: ")) {
+				writer.write("Trajectory Formula: " + equation); writer.writeSkipLine(2);
+			}
+			
+			place++;
+		}
+		
+		writer.stop();
 	}
 
 }

@@ -9,7 +9,7 @@ public class Projectile {
 	double mass, contactSA, pressure;
 	double length, width, height, density;
 	double volume;
-	public double muzzleVelocity, acceleration, finalVelo, barrelTravelTime, force;
+	public double muzzleVelocity, acceleration, finalVelo, barrelTravelTime, force, muzzleEnergy;
 	Railgun railgun;
 	final double initVelo = 0;
 	
@@ -61,6 +61,10 @@ public class Projectile {
 		volume = v; density = d; contactSA = cSA; pressure = p; railgun = r;
 	}
 	
+	public void calcAll() {
+		calcMuzzleVelocity(); calcMuzzleEnergy();
+	}
+	
 	public void calcMass() {
 		if (!VariableUtil.hasValue(volume)) {
 			calcVolume();
@@ -83,7 +87,7 @@ public class Projectile {
 	}
 	
 	private void calcAcceleration() {
-		calcForce(); //Calculates force in pounds
+		calcForce();
 		if (!VariableUtil.hasValue(mass)) {
 			calcMass(); //Calculates mass in pounds
 		}
@@ -95,5 +99,11 @@ public class Projectile {
 		double a = .5 * acceleration, b = 0, c = -railgun.length;
 		QuadraticEquation qe = new QuadraticEquation(a, b, c); qe.calcQuadraticEquation();
 		barrelTravelTime = qe.solution;
+	}
+	
+	private void calcMuzzleEnergy() {		
+		double veloSqrd = Math.pow(muzzleVelocity, 2);
+		
+		muzzleEnergy = .5 * mass * veloSqrd;
 	}
 }
