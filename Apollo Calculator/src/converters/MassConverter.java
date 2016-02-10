@@ -19,7 +19,7 @@ public class MassConverter {
 	 * @param unit the unit the value is in
 	 * @return the new value in oz
 	 */
-	public double convertToOunces(double value, String unit) {		
+	public static double convertToOunces(double value, String unit) {		
 		double ounces = 0;
 		
 		//***Start imperial to imperial conversions***
@@ -29,14 +29,20 @@ public class MassConverter {
 			return ounces * 2000; //Converts tons to ounces
 		}
 		
-		else if (unit.contains("pound") || unit.equalsIgnoreCase("lb")) {
+		else if (unit.contains("pound") || unit.equalsIgnoreCase("lbs")) {
 			ounces = value * 16; //Converts pounds to ounces
+			return ounces;
+		}
+		
+		else if (unit.contains("grain") || unit.equalsIgnoreCase("grs")) {
+			ounces = value * 437.5;
 			return ounces;
 		}
 		
 		else if (unit.contains("ounce") || unit.equalsIgnoreCase("oz")) {
 			return value;
 		}
+		
 		
 		//***End imperial to imperial conversions***
 		
@@ -59,10 +65,15 @@ public class MassConverter {
 		//**End metric to imperial conversions***
 	}
 	
+	public static double convertToGrains(double value, String unit) {
+		double grains = convertToOunces(value, unit) * 437.5;
+		return grains;
+	}
+	
 	/**
 	 * Method that converts a value to pounds (lbs)
 	 * 
-	 * @Prerequisite value must be a measure of mass
+	 * @Precondition value must be a measure of mass
 	 * 
 	 * @param value the value of the mass
 	 * @param unit the unit the value is in
@@ -106,6 +117,11 @@ public class MassConverter {
 		
 		else if (unit.contains("pound") || unit.equalsIgnoreCase("lbs")) {
 			grams = value * 453.592; //Converts pounds to grams
+			return grams;
+		}
+		
+		else if (unit.contains("grain") || unit.equalsIgnoreCase("grs")) {
+			grams = value / 15.4324;
 			return grams;
 		}
 		

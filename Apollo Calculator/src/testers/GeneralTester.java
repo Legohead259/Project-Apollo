@@ -14,7 +14,7 @@ import util.Writer;
 
 public class GeneralTester {
 	static double lengthMeters = LengthConverter.convertToMeters(20, "in");
-	static double massKg = MassConverter.convertToKilograms(.196, "lbs");
+	static double massGrs = MassConverter.convertToGrains(.196, "lbs");
 	
 	static Railgun r = new Railgun(lengthMeters); //Makes a new Railgun object
 	static Projectile p = new Projectile(2, .098, 1, 120, r); //Makes a new Projectile object
@@ -87,7 +87,7 @@ public class GeneralTester {
 	
 	
 	private static void calcImpactVariables(double initVertVelo, double t, double hVelo) {
-		ImpactVariablesCalculator ivc = new ImpactVariablesCalculator(initVertVelo, t, hVelo, massKg ); ivc.calcAll();
+		ImpactVariablesCalculator ivc = new ImpactVariablesCalculator(initVertVelo, t, hVelo, massGrs ); ivc.calcAll();
 		
 		impactAngle = ivc.impactAngle; impactVeloMPS = ivc.impactVelo; 
 		impactVeloFPS = VelocityConverter.convertToFPS(ivc.impactVelo, "m/s"); impactEnergy = ivc.impactEnergy;
