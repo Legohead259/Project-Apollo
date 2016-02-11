@@ -20,9 +20,9 @@ public class ProjectileTester {
 	private static void testProjectile(Projectile p) {
 		p.calcAll();
 		
-		out.println(p.acceleration + " m/s^2");
-		out.println(p.barrelTravelTime + " s");
-		out.println(p.muzzleVelocity + " m/s");
-		out.println(p.muzzleEnergy + " J");
+		out.println(p.getAcceleration() + " m/s^2");
+		out.println(p.getBarrelTravelTime() + " s");
+		out.println(p.getMuzzleVelocity() + " m/s");
+		out.println(p.getMuzzleEnergy() + " J");
 	}
 }

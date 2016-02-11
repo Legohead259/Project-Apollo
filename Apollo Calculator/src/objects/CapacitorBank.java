@@ -1,13 +1,13 @@
 package objects;
 
+import objectVariables.CapacitorBankVariables;
+
 /**
  * Capacitor bank object for the Apollo Targeting Interface
  * @author Braidan Duffy
  *
  */
-public class CapacitorBank {
-	double voltage, capacitance, charge, energy;
-	
+public class CapacitorBank extends CapacitorBankVariables{
 	/**
 	 * Constructor for the capacitor bank object
 	 * 

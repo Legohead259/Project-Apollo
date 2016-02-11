@@ -135,12 +135,12 @@ public class GeneralTester {
 			}
 			
 			if (name.equals("Time of Flight: ")) {
-				writer.write("Trajectory Formula: " + equation); writer.writeSkipLine(2);
+				writer.write("Trajectory Formula: " + equation); writer.skipLine(2);
 			}
 			
 			place++;
 		}
-		
+		writer.skipLine(2);
 		writer.stop();
 	}
 

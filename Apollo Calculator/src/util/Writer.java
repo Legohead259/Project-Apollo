@@ -55,7 +55,7 @@ public class Writer {
 		printer.close();
 	}
 
-	public void writeSkipLine(int i) {
+	public void skipLine(int i) {
 		for (int x = 0; x < i; x++) {
 			writeNewLine();
 		}

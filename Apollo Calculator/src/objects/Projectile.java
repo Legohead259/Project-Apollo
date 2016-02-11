@@ -1,18 +1,12 @@
 package objects;
 
+import objectVariables.ProjectileVariables;
 import converters.ForceConverter;
 import converters.MassConverter;
 import equations.QuadraticEquation;
 import util.VariableUtil;
 
-public class Projectile {
-	double mass, contactSA, pressure;
-	double length, width, height, density;
-	double volume;
-	public double muzzleVelocity, acceleration, finalVelo, barrelTravelTime, force, muzzleEnergy;
-	Railgun railgun;
-	final double initVelo = 0;
-	
+public class Projectile extends ProjectileVariables{
 	/**
 	 * Constructor for ATI's Projectile
 	 * 
@@ -61,10 +55,16 @@ public class Projectile {
 		volume = v; density = d; contactSA = cSA; pressure = p; railgun = r;
 	}
 	
+	/**
+	 * Method that calculates all of the properties of the projectile
+	 */
 	public void calcAll() {
 		calcMuzzleVelocity(); calcMuzzleEnergy();
 	}
 	
+	/**
+	 * Method that calculates the mass of the projectile
+	 */
 	public void calcMass() {
 		if (!VariableUtil.hasValue(volume)) {
 			calcVolume();
@@ -72,14 +72,25 @@ public class Projectile {
 		mass = density * volume;
 	}
 	
+	/**
+	 * Method that calculates the volume of the projectile
+	 * 
+	 * @Precondition projectile shape must be rectangular
+	 */
 	private void calcVolume() {
 		volume = length * width * height;
 	}
 	
+	/**
+	 * Method theat calculates the force exerted on the projectile when the air pressure hits it
+	 */
 	public void calcForce() {
 		force = pressure * contactSA; //Calculates force in pounds
 	}
 	
+	/**
+	 * Method that calculates the muzzle velocit
+	 */
 	public void calcMuzzleVelocity() {
 		calcAcceleration(); //Calculates the acceleration of the projectile in ft/s^2
 		calcbarrelTravelTime(); //Calculates the muzzle travel time
@@ -106,4 +117,46 @@ public class Projectile {
 		
 		muzzleEnergy = (mass * veloSqrd) / 2;
 	}
+	
+	
+	//*****START GETTERS*****
+	
+	
+	/**
+	 * @return the muzzleVelocity
+	 */
+	public double getMuzzleVelocity() {
+		return muzzleVelocity;
+	}
+
+	/**
+	 * @return the acceleration
+	 */
+	public double getAcceleration() {
+		return acceleration;
+	}
+
+	/**
+	 * @return the finalVelo
+	 */
+	public double getFinalVelo() {
+		return finalVelo;
+	}
+
+	/**
+	 * @return the barrelTravelTime
+	 */
+	public double getBarrelTravelTime() {
+		return barrelTravelTime;
+	}
+
+	/**
+	 * @return the muzzleEnergy
+	 */
+	public double getMuzzleEnergy() {
+		return muzzleEnergy;
+	}
+	
+	
+	//*****END GETTERS*****
 }
