@@ -16,7 +16,7 @@ public class Projectile {
 	/**
 	 * Constructor for ATI's Projectile
 	 * 
-	 * @Precondition the mass must be in pounds, the contact surface area must be in square inches, the air pressure must be in PSI
+	 * @Precondition the mass must be in grains, the contact surface area must be in square inches, the air pressure must be in PSI
 	 * 
 	 * @param m the mass of the projectile
 	 * @param cSA the surface area of the projectile that is exposed to the pressurized air
@@ -104,6 +104,6 @@ public class Projectile {
 	private void calcMuzzleEnergy() {		
 		double veloSqrd = Math.pow(muzzleVelocity, 2);
 		
-		muzzleEnergy = .5 * mass * veloSqrd;
+		muzzleEnergy = (mass * veloSqrd) / 2;
 	}
 }

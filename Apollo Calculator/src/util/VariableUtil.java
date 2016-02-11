@@ -17,7 +17,9 @@ public class VariableUtil {
 	public static String findMissingVar(String iden1, String iden2, String[] vars) {
 		int pos = 0;
 		
-		for (String var : vars) {
+		for (int x = 0; x < vars.length; x++) {
+			String var = vars[x];
+			
 			if (!(var.equalsIgnoreCase(iden1)) && !(var.equalsIgnoreCase(iden2))) {
 				vars[pos] = "";
 				return var;

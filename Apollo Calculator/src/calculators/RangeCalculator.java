@@ -82,6 +82,9 @@ public class RangeCalculator {
 	//*****START RANGE CALCULATIONS*****
 	
 	
+	/**
+	 * Method that calculates the range that the projectile travels
+	 */
 	public void calcRange() {
 		calcVertVelo(); calcHorizVelo();
 		double displacement;

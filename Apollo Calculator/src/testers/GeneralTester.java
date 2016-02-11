@@ -21,8 +21,8 @@ public class GeneralTester {
 	
 	static PrintStream out = System.out;
 	
-	static String path = "E:\\Project ZEUS\\Project APOLLO\\Output Test.txt";
-	
+	static String pathHardDrive = "E:\\Project ZEUS\\Project APOLLO\\Output Test.txt";
+	static String pathSchoolDrive = "H:\\My Documents\\Project Apollo\\Output Test.txt";
 	static String[] names = {"Muzzle Velocity: ",  "Muzzle Velocity: ", "Muzzle Energy: ", "Acceleration: ", 
 							 "Time in Barrel: ", "Range: ", "Time of Flight: ", "Impact Angle: ", "Impact Velocity: ",
 							 "Impact Velocity: ", "Impact Energy: ", "Impact Force: ", "Impact Foce: "};
@@ -44,7 +44,7 @@ public class GeneralTester {
 	
 	private static void simulate() {
 		calcProjectileVariables(); calcRange(); createVariableArr(); 
-		writeVariablesToFile(path, dataPoints, names, trajectoryFormula);
+		writeVariablesToFile(pathSchoolDrive, dataPoints, names, trajectoryFormula);
 	}
 	
 	
@@ -124,9 +124,11 @@ public class GeneralTester {
 		Writer writer = new Writer(path);
 		int place = 0;
 		
-		for (double x : arr) {
+		for (int x = 0; x < arr.length; x++) {
 			String name = names[place];
-			writer.write(name); writer.write(x); writer.writeNewLine();
+			double data = arr[x];
+			
+			writer.write(name); writer.write(data); writer.writeNewLine();
 			
 			if (name.equals("Time in Barrel: ")) {
 				writer.writeNewLine();

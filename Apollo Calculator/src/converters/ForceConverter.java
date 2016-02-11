@@ -1,6 +1,18 @@
 package converters;
 
+/**
+ * Converter class that converts values between units
+ * @author Duffy
+ *
+ */
 public class ForceConverter {
+	
+	/**
+	 * Method that converts a value to Newtons of force
+	 * @param value the value to be converted
+	 * @param unit the unit being converted from
+	 * @return the value in Newtons of force
+	 */
 	public static double convertToNewtons(double value, String unit) {
 		double newtons = 0;
 		
@@ -14,6 +26,12 @@ public class ForceConverter {
 		}
 	}
 	
+	/**
+	 * Method that converts a value to Pounds of force
+	 * @param value the value to be converted
+	 * @param unit the unit being converted from
+	 * @return the value in Pounds of force
+	 */
 	public static double convertToPoundsForce(double value, String unit) {
 		double lbf = 0;
 		
